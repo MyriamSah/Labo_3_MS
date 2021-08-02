@@ -55,6 +55,7 @@ for i in range(30000):
         plt.axis("scaled")
         plt.xlim(0,700)
         plt.ylim(0,500)
+        plt.close('all')
     
 
         fig.canvas.draw() # Draw the image on the canvas (i.e. apply the functions above), without displaying it
