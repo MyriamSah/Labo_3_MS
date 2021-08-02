@@ -36,7 +36,6 @@ img = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='') # Not sur
 img  = img.reshape(fig.canvas.get_width_height()[::-1] + (3,)) # Reshape the array so it's 3d (height X width X layer(color))
 img = cv2.cvtColor(img,cv2.COLOR_RGB2BGR) # Convert color to opencv's default BGR
 
-img.show()
 frame = img
 height, width, layers = frame.shape
 video = cv2.VideoWriter(r'C:/Users/Myriam/Desktop/Université_Myriam/8esession/PSY3009/Anim_Nouv_1.mp4', 0, 100, (width,height))
@@ -54,8 +53,6 @@ for i in range(30000):
     img = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='') # Not sure how, but it sends the pixel values of the canvas to an array (called img)
     img  = img.reshape(fig.canvas.get_width_height()[::-1] + (3,)) # Reshape the array so it's 3d (height X width X layer(color))
     img = cv2.cvtColor(img,cv2.COLOR_RGB2BGR)
-    
-    video.write(pil_to_cv(img))
     
 
 video.release()
