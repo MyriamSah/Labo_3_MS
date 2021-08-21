@@ -12,32 +12,33 @@ import numpy as np
 import mne
 from mne.datasets import misc
 
-fname1=op.join(misc.data_path(), 'xdf', 'Sans_tête.xdf')
+fname1=op.join(misc.data_path(), 'xdf', 'Avec_tete.xdf')
 
-streams1, header1 = pyxdf.load_xdf(r'C:\Users\Myriam\Documents\CurrentStudy\sub-P001\ses-S001\eeg\Sans_tête.xdf')
+streams1, header1 = pyxdf.load_xdf(r'C:\Users\Myriam\Documents\CurrentStudy\sub-P001\ses-S001\eeg\Avec_tete.xdf')
 data1 = streams1[0]["time_series"].T
 print(data1.shape)
 assert data1.shape[0] == 4
-data1[:4:2] -= data1[1:4:2]
-data1 = data1[::2]
-data1[:2] *= (1e-6 / 50 / 2)
-sfreq = float(streams1[0]["info"]["nominal_srate"][0])
-info = mne.create_info(2, sfreq, ["eeg", "stim"])
-raw = mne.io.RawArray(data1, info)
-raw.plot(scalings=dict(eeg=100e-6), duration=300, start=0)
+data1 *= (1e-6 / 50 / 2)
+channels = ["TP9", "AF7", "AF8", "TP10"]
+info1 = mne.create_info(channels, 256, ch_types="eeg")
+raw1 = mne.io.RawArray(data1, info1)
+print("raw1.info", raw1.info)
+figS = mne.viz.plot_raw(raw1, duration=1, start=60, title="Avec_tête")
+psdS = mne.viz.plot_raw_psd(raw1, fmin=0, fmax=128, picks="all", show=True)
 
-fname=op.join(misc.data_path(), 'xdf', 'Avec_tête.xdf')
+fname=op.join(misc.data_path(), 'xdf', 'Sans_tete.xdf')
 
-streams, header = pyxdf.load_xdf(r'C:\Users\Myriam\Documents\CurrentStudy\sub-P001\ses-S002\eeg\Avec_tête.xdf')
+streams, header = pyxdf.load_xdf(r'C:\Users\Myriam\Documents\CurrentStudy\sub-P002\ses-S001\eeg\Sans_tete.xdf')
 data = streams[0]["time_series"].T
 print(data.shape)
-assert data.shape[0] == 3
-data[:4:2] -= data[1:4:2]
-data = data[::2]
-data[:2] *= (1e-6 / 50 / 2)
-sfreq = float(streams[0]["info"]["nominal_srate"][0])
-info = mne.create_info(2, sfreq, ["eeg", "stim"])
+assert data.shape[0] == 4
+data *= (1e-6 / 50 / 2)
+channels = ["TP9", "AF7", "AF8", "TP10"]
+info = mne.create_info(channels, 256, ch_types="eeg")
 raw = mne.io.RawArray(data, info)
-raw.plot(scalings=dict(eeg=100e-6), duration=300, start=0)
+print("raw1.info", raw.info)
+figA = mne.viz.plot_raw(raw, duration=1, start=60, title="Sans-tête")
+psdA = mne.viz.plot_raw_psd(raw, fmin=0, fmax=128, picks="all", show=True)
+
 
 
