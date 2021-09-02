@@ -41,18 +41,17 @@ X = Coord[:,1]
 Y = Coord[:,2]
 Next = Coord[:,5]
 
-# Initialise figure
-X2 = [63,63,252,441,441]
+#Coordonnées des points fixes (ordre: A,D,E,B,C)
+X2 = [63,63,252,441,441] 
 Y2 = [63,315,189,63,315]
 
+# Initialise figure
 fig= plt.figure()
-error = plt.plot(X2,Y2, color="darkorange", marker="o", markersize=75.6, linewidth =0)
+error = plt.plot(X2,Y2, color="darkorange", marker="o", markersize=75.6, linewidth =0) #marge d'erreur des points
 dots = plt.plot(X2,Y2, "bo", markersize=37.8)
-dots2 = plt.plot(X2,Y2, "ko", markersize=31.5)
-lines = plt.plot([], color = "blue", linewidth = 5)
+dots2 = plt.plot(X2,Y2, "ko", markersize=31.5) # points fixes
+lines = plt.plot([], color = "blue", linewidth = 5) 
 line = lines[0]
-lines2 = plt.plot([], color = "blue", linewidth = 5)
-line2 = lines[0]
 plt.axis("scaled")
 plt.xlim(0,500)
 plt.ylim(0,350)
@@ -67,7 +66,7 @@ def animate(i):
     if X[i] != 0 or Y[i] != 0:
         x_data.append(X[i])
         y_data.append(Y[i])
-    if Next[i] == True:
+    if Next[i] == True: # Réinitialise pour le prochain dessin
         x_data.clear()
         y_data.clear()  
     line.set_xdata(x_data)
