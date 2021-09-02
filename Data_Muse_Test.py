@@ -24,7 +24,7 @@ info1 = mne.create_info(channels, 256, ch_types="eeg")
 raw1 = mne.io.RawArray(data1, info1)
 print("raw1.info", raw1.info)
 figS = mne.viz.plot_raw(raw1, duration=1, start=60, title="Avec_tête")
-psdS = mne.viz.plot_raw_psd(raw1, fmin=0, fmax=128, picks="all", show=True)
+psdS = mne.viz.plot_raw_psd(raw1, fmin=0, fmax=40, picks="all", show=True)
 
 fname=op.join(misc.data_path(), 'xdf', 'Sans_tete.xdf')
 
@@ -38,7 +38,4 @@ info = mne.create_info(channels, 256, ch_types="eeg")
 raw = mne.io.RawArray(data, info)
 print("raw1.info", raw.info)
 figA = mne.viz.plot_raw(raw, duration=1, start=60, title="Sans-tête")
-psdA = mne.viz.plot_raw_psd(raw, fmin=0, fmax=128, picks="all", show=True)
-
-
-
+psdA = mne.viz.plot_raw_psd(raw, fmin=0, fmax=40, picks="all", show=True)
